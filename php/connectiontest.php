@@ -11,9 +11,9 @@ $config = array(
 );
 //MySql-konfiguraatio. Muista vaihtaa socketin osoitteeseen oma käyttäjänimesi, sekä tietokannan nimi ja tunnuksesi
 $config = array(
-  'dburl' => 'mysql:unix_socket=/home/replaceme/mysql/socket;dbname=replaceme',
+  'dburl' => 'mysql:unix_socket=/home/FIXME/mysql/socket;dbname=FIXME',
   'dbusername' => 'root',
-  'dbpassword' => 'replaceme',
+  'dbpassword' => 'FIXME',
 );
 
 /***************************************************************/
