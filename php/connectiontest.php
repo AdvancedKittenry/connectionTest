@@ -24,7 +24,11 @@ function getDatabase() {
   global $config;
 	static $db = null;
   if ($db === null) {
-    $db = new PDO($config['dburl'], $config['dbusername'], $config['dbpassword']);
+    if (isset($config['dbusername'])) {
+      $db = new PDO($config['dburl'], $config['dbusername'], $config['dbpassword']);
+    } else {
+      $db = new PDO($config['dburl']);
+    }
     $db->setAttribute(PDO::ATTR_ERRMODE,PDO::ERRMODE_EXCEPTION);
   }
   return $db;
