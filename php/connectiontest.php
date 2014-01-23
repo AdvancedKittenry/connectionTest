@@ -187,5 +187,5 @@ foreach($tables as $table): ?>
 </div>
 </body>
 </html><?php } catch (Exception $e) {
-  echo '<pre>', $e;
+    echo '<pre>', $e->getMessage();
 }
