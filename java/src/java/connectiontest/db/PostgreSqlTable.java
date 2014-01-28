@@ -18,6 +18,10 @@ public class PostgreSqlTable extends AbstractTable {
         super(name, c);
     }
 
+    public String getQuoteChar() {
+      return "\"";
+    }
+
     @Override
     public ResultContainer getColumns() throws NamingException, SQLException {
         String[] args = new String[1];

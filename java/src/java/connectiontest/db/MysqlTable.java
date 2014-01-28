@@ -18,9 +18,13 @@ public class MysqlTable extends AbstractTable {
         super(name, c);
     }
 
+    public String getQuoteChar() {
+      return "`";
+    }
+
     @Override
     public ResultContainer getColumns() throws NamingException, SQLException {
-        return Database.getData("DESCRIBE "+getName(), null);
+        return Database.getData("DESCRIBE "+getQuotedName(), null);
     }
     
 }

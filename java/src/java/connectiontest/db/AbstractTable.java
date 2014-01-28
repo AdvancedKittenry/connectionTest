@@ -27,15 +27,20 @@ abstract public class AbstractTable {
     public String getName() {
         return name;
     }
+    public String getQuotedName() {
+        String q = getQuoteChar();
+        return q+name+q;
+    }
+    public abstract String getQuoteChar();
     
     public abstract ResultContainer getColumns() throws SQLException, NamingException;
     
     public final ResultContainer getRows() throws SQLException, NamingException {
-        return Database.getData("SELECT * FROM "+getName()+" LIMIT 100", null);
+        return Database.getData("SELECT * FROM "+getQuotedName()+" LIMIT 100", null);
     }
     public final int getRowCount() throws SQLException, NamingException {
         Connection c = Database.getConnection();
-        PreparedStatement stmnt = c.prepareStatement("SELECT count(*) FROM "+getName());
+        PreparedStatement stmnt = c.prepareStatement("SELECT count(*) FROM "+getQuotedName());
         ResultSet res = stmnt.executeQuery();
         int count = 0;
         
