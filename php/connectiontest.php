@@ -53,15 +53,18 @@ class TableLister {
 
   public function __construct($name) {$this->name = $name;}
   public function getName() { return $this->name; }
+  public function quoteName() { return static::TABLE_QUOTE.$this->name.static::TABLE_QUOTE; }
 
   public function getRowCount() {
-    return getValue("SELECT count(*) FROM $this->name");
+    return getValue('SELECT count(*) FROM '.$this->quoteName());
   }
   public function getRows($limit = 100) {
-    return getObjects("SELECT * FROM $this->name LIMIT ".(int)$limit);
+    return getObjects("SELECT * FROM ".$this->quoteName()." LIMIT ".(int)$limit);
   }
 }
 class MySqlTableLister extends TableLister {
+  const TABLE_QUOTE = '`';
+
   public static function getTables() {
     $objs = getObjects("SHOW TABLES");
     $ret = array();
@@ -74,10 +77,12 @@ class MySqlTableLister extends TableLister {
     return $ret;
   }
   public function getColumns() {
-    return getObjects("DESCRIBE $this->name");
+    return getObjects("DESCRIBE ".$this->quoteName());
   }
 }
 class PgSqlTableLister extends TableLister {
+  const TABLE_QUOTE = '"';
+
   public static function getTables() {
     $objs = getObjects("select tablename from pg_tables where tableowner != 'postgres' order by tablename");
     $ret = array();
@@ -187,5 +192,5 @@ foreach($tables as $table): ?>
 </div>
 </body>
 </html><?php } catch (Exception $e) {
-    echo '<pre>', $e->getMessage();
+  echo '<pre>', $e->getMessage();
 }
