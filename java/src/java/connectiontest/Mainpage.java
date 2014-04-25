@@ -42,7 +42,6 @@ public class Mainpage extends HttpServlet {
         response.setContentType("text/html;charset=UTF-8");
         
         try {
-            Connection c = Database.getConnection();
             List<AbstractTable> tables = Database.getTables();
             request.setAttribute("tables", tables);
 
